@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TÜBİTAK 2204 Alan Seçimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f7ff;
+  --white: #ffffff;
+  --dark: #0f1729;
+  --text: #2d3561;
+  --muted: #7880a4;
+  --border: #e2e6f3;
+
+  --a-color: #e63946;
+  --a-light: #fdedef;
+  --b-color: #2196f3;
+  --b-light: #e3f2fd;
+
+  --bio: #22c55e;     --bio-l: #f0fdf4;
+  --cog: #84cc16;     --cog-l: #f7fee7;
+  --deg: #f97316;     --deg-l: #fff7ed;
+  --fiz: #3b82f6;     --fiz-l: #eff6ff;
+  --kim: #ef4444;     --kim-l: #fef2f2;
+  --mat: #8b5cf6;     --mat-l: #f5f3ff;
+  --tar: #a16207;     --tar-l: #fefce8;
+  --trk: #ec4899;     --trk-l: #fdf2f8;
+  --sos: #14b8a6;     --sos-l: #f0fdfa;
+  --tek: #f59e0b;     --tek-l: #fffbeb;
+  --yaz: #6366f1;     --yaz-l: #eef2ff;
+  --psi: #e11d48;     --psi-l: #fff1f2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--dark);
+  padding: 36px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--a-color), var(--b-color));
+}
+.header-top {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.badge-a { background: var(--a-color); color: #fff; }
+.badge-b { background: var(--b-color); color: #fff; }
+.header h1 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.header p { color: #8892b0; font-size: 0.9rem; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  max-width: 900px;
+  margin: 28px auto 0;
+  padding: 0 20px;
+  gap: 8px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 13px 10px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--muted);
+}
+.tab-btn.active-a { background: var(--a-color); border-color: var(--a-color); color: #fff; }
+.tab-btn.active-b { background: var(--b-color); border-color: var(--b-color); color: #fff; }
+.tab-btn:not(.active-a):not(.active-b):hover { border-color: var(--dark); color: var(--dark); }
+
+/* ── DIFF BANNER ── */
+.diff-banner {
+  max-width: 900px;
+  margin: 16px auto 0;
+  padding: 0 20px;
+}
+.diff-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.diff-box .icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+.diff-box strong { color: var(--text); }
+
+/* ── SEARCH ── */
+.search-wrap {
+  max-width: 900px;
+  margin: 16px auto 0;
+  padding: 0 20px;
+  position: relative;
+}
+.search-wrap input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: var(--b-color); }
+.search-icon {
+  position: absolute;
+  left: 34px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+/* ── CONTENT ── */
+.content {
+  max-width: 900px;
+  margin: 20px auto 60px;
+  padding: 0 20px;
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── ALAN CARD ── */
+.alan-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.alan-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.alan-card.search-hidden { display: none; }
+
+.alan-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  border-left: 4px solid transparent;
+  transition: background 0.15s;
+}
+.alan-header:hover { background: #fafbff; }
+
+.alan-icon {
+  width: 42px; height: 42px;
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.alan-info { flex: 1; }
+.alan-info h3 { font-size: 1rem; font-weight: 700; color: var(--dark); }
+.alan-info .alan-meta {
+  font-size: 0.78rem; color: var(--muted); margin-top: 2px; font-weight: 500;
+}
+.alan-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--bg);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.alan-arrow {
+  color: var(--muted);
+  font-size: 0.85rem;
+  transition: transform 0.25s;
+  margin-left: 4px;
+}
+.alan-card.open .alan-arrow { transform: rotate(180deg); }
+
+/* Tematik alanlar */
+.tematik-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.alan-card.open .tematik-wrap { max-height: 600px; }
+
+.tematik-inner {
+  padding: 0 20px 18px;
+  border-top: 1px solid var(--border);
+}
+.tematik-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 0 10px;
+  display: block;
+}
+.tematik-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.tematik-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 7px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: default;
+  transition: all 0.15s;
+}
+.tematik-tag:hover {
+  border-color: currentColor;
+}
+.tematik-tag.highlight {
+  background: var(--a-light);
+  border-color: var(--a-color);
+  color: var(--a-color);
+}
+
+/* ── COLOR SYSTEM ── */
+.alan-card[data-alan="biyoloji"] .alan-header { border-left-color: var(--bio); }
+.alan-card[data-alan="biyoloji"] .alan-icon   { background: var(--bio-l); }
+.alan-card[data-alan="biyoloji"] .alan-count  { background: var(--bio-l); color: var(--bio); }
+
+.alan-card[data-alan="cografya"] .alan-header { border-left-color: var(--cog); }
+.alan-card[data-alan="cografya"] .alan-icon   { background: var(--cog-l); }
+.alan-card[data-alan="cografya"] .alan-count  { background: var(--cog-l); color: var(--cog); }
+
+.alan-card[data-alan="degerler"] .alan-header { border-left-color: var(--deg); }
+.alan-card[data-alan="degerler"] .alan-icon   { background: var(--deg-l); }
+.alan-card[data-alan="degerler"] .alan-count  { background: var(--deg-l); color: var(--deg); }
+
+.alan-card[data-alan="fizik"] .alan-header { border-left-color: var(--fiz); }
+.alan-card[data-alan="fizik"] .alan-icon   { background: var(--fiz-l); }
+.alan-card[data-alan="fizik"] .alan-count  { background: var(--fiz-l); color: var(--fiz); }
+
+.alan-card[data-alan="kimya"] .alan-header { border-left-color: var(--kim); }
+.alan-card[data-alan="kimya"] .alan-icon   { background: var(--kim-l); }
+.alan-card[data-alan="kimya"] .alan-count  { background: var(--kim-l); color: var(--kim); }
+
+.alan-card[data-alan="matematik"] .alan-header { border-left-color: var(--mat); }
+.alan-card[data-alan="matematik"] .alan-icon   { background: var(--mat-l); }
+.alan-card[data-alan="matematik"] .alan-count  { background: var(--mat-l); color: var(--mat); }
+
+.alan-card[data-alan="tarih"] .alan-header { border-left-color: var(--tar); }
+.alan-card[data-alan="tarih"] .alan-icon   { background: var(--tar-l); }
+.alan-card[data-alan="tarih"] .alan-count  { background: var(--tar-l); color: var(--tar); }
+
+.alan-card[data-alan="turkce"] .alan-header { border-left-color: var(--trk); }
+.alan-card[data-alan="turkce"] .alan-icon   { background: var(--trk-l); }
+.alan-card[data-alan="turkce"] .alan-count  { background: var(--trk-l); color: var(--trk); }
+
+.alan-card[data-alan="sosyoloji"] .alan-header { border-left-color: var(--sos); }
+.alan-card[data-alan="sosyoloji"] .alan-icon   { background: var(--sos-l); }
+.alan-card[data-alan="sosyoloji"] .alan-count  { background: var(--sos-l); color: var(--sos); }
+
+.alan-card[data-alan="teknoloji"] .alan-header { border-left-color: var(--tek); }
+.alan-card[data-alan="teknoloji"] .alan-icon   { background: var(--tek-l); }
+.alan-card[data-alan="teknoloji"] .alan-count  { background: var(--tek-l); color: var(--tek); }
+
+.alan-card[data-alan="yazilim"] .alan-header { border-left-color: var(--yaz); }
+.alan-card[data-alan="yazilim"] .alan-icon   { background: var(--yaz-l); }
+.alan-card[data-alan="yazilim"] .alan-count  { background: var(--yaz-l); color: var(--yaz); }
+
+.alan-card[data-alan="psikoloji"] .alan-header { border-left-color: var(--psi); }
+.alan-card[data-alan="psikoloji"] .alan-icon   { background: var(--psi-l); }
+.alan-card[data-alan="psikoloji"] .alan-count  { background: var(--psi-l); color: var(--psi); }
+
+/* ── ONLY A badge on cards ── */
+.only-a-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: var(--a-light);
+  color: var(--a-color);
+  border: 1px solid rgba(230,57,70,0.25);
+  border-radius: 5px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ── NOTE BOX ── */
+.note-box {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.83rem;
+  color: #5f4800;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.note-box strong { color: #c8860a; }
+
+/* ── COMPARISON TABLE ── */
+.compare-wrap {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+.compare-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.compare-table th {
+  padding: 11px 16px;
+  text-align: left;
+  font-weight: 700;
+  background: var(--dark);
+  color: #fff;
+}
+.compare-table th.a { background: var(--a-color); }
+.compare-table th.b { background: var(--b-color); }
+.compare-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:nth-child(even) td { background: #fafbff; }
+.tick { color: #22c55e; font-weight: 800; }
+.cross { color: #ef4444; font-weight: 800; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="badge badge-a">📘 2204-A · Lise</span>
+    <span class="badge badge-b">📗 2204-B · Ortaokul</span>
+  </div>
+  <h1>Alan ve Alt Alan Seçimi Rehberi</h1>
+  <p>Resmi TÜBİTAK 2025 Çağrı Duyurularına dayalı güncel sınıflandırma</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active-a" onclick="switchTab('a', this)">📘 2204-A Lise (12 Ana Alan)</button>
+  <button class="tab-btn" onclick="switchTab('b', this)">📗 2204-B Ortaokul (10 Ana Alan)</button>
+  <button class="tab-btn" onclick="switchTab('karsilastir', this)">⚖️ Karşılaştır</button>
+</div>
+
+<!-- DIFF BANNER -->
+<div class="diff-banner">
+  <div class="diff-box">
+    <span class="icon">💡</span>
+    <div>
+      <strong>Ana alanlar farklı, tematik alanlar aynı!</strong>
+      2204-A'da <strong>Sosyoloji</strong> ve <strong>Psikoloji</strong> ayrı ana alanlar iken, 2204-B'de bu iki alan yoktur.
+      2204-B'de <strong>Türkçe</strong> adı kullanılırken, 2204-A'da <strong>Türk Dili ve Edebiyatı</strong> olarak geçer.
+      Her iki yarışmada da <strong>63 tematik alt alan</strong> aynıdır.
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" placeholder="Tematik alan ara... (örn: Yapay Zekâ, Robotik, Biyoçeşitlilik)" oninput="searchTematik(this.value)">
+</div>
+
+<!-- ══════════════ PANEL A ══════════════ -->
+<div class="content panel active" id="panel-a">
+
+  <div class="note-box">
+    <strong>⚠️ Önemli:</strong> Başvuru sırasında seçilen ana alan ve tematik alan sonradan değiştirilemez. Projenin <em>nihai amacına</em> göre seçim yapılmalı; yalnızca destek alınan bilim dalı dikkate alınmamalıdır.
+  </div>
+
+  <!-- BİYOLOJİ -->
+  <div class="alan-card" data-alan="biyoloji">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🌿</div>
+      <div class="alan-info">
+        <h3>Biyoloji</h3>
+        <div class="alan-meta">Canlılar, genetik, ekoloji, mikrobiyoloji</div>
+      </div>
+      <span class="alan-count">8 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Biyoçeşitlilik</span>
+          <span class="tematik-tag">Biyomedikal Cihaz Teknolojileri</span>
+          <span class="tematik-tag">Biyotaklit</span>
+          <span class="tematik-tag">Ekolojik Denge</span>
+          <span class="tematik-tag">Ekolojik Okuryazarlık</span>
+          <span class="tematik-tag">Genetik ve Biyoteknoloji</span>
+          <span class="tematik-tag">Nörobilim ve Nöroteknoloji</span>
+          <span class="tematik-tag">Salgın Hastalıklar ve Salgınla Mücadele</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COĞRAFYA -->
+  <div class="alan-card" data-alan="cografya">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🌍</div>
+      <div class="alan-info">
+        <h3>Coğrafya</h3>
+        <div class="alan-meta">Doğal kaynaklar, afetler, çevre, iklim</div>
+      </div>
+      <span class="alan-count">8 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Çevre ve Çevreyi Koruma</span>
+          <span class="tematik-tag">Doğal Afetler ve Afet Yönetimi</span>
+          <span class="tematik-tag">Doğal Miras ve Doğal Kaynaklar</span>
+          <span class="tematik-tag">Jeotermal Enerji</span>
+          <span class="tematik-tag">Küresel Isınma ve İklim Değişikliği</span>
+          <span class="tematik-tag">Orman ve Ormanları Koruma</span>
+          <span class="tematik-tag">Tarım ve Hayvancılık Teknolojileri</span>
+          <span class="tematik-tag">Yer ve Deniz Bilimleri</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEĞERLER EĞİTİMİ -->
+  <div class="alan-card" data-alan="degerler">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🤝</div>
+      <div class="alan-info">
+        <h3>Değerler Eğitimi</h3>
+        <div class="alan-meta">İnsan hakları, göç, yoksulluk, kültürel miras</div>
+      </div>
+      <span class="alan-count">8 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Aile İçi İletişim</span>
+          <span class="tematik-tag">Bağımlılık ve Bağımlılıkla Mücadele</span>
+          <span class="tematik-tag">Değerler Eğitimi</span>
+          <span class="tematik-tag">Göç ve Uyum</span>
+          <span class="tematik-tag">İnsan Hakları ve Demokrasi</span>
+          <span class="tematik-tag">Kültürel Miras</span>
+          <span class="tematik-tag">Sorumlu Üretim ve Tüketim</span>
+          <span class="tematik-tag">Yoksullukla Mücadele</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FİZİK -->
+  <div class="alan-card" data-alan="fizik">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">⚡</div>
+      <div class="alan-info">
+        <h3>Fizik</h3>
+        <div class="alan-meta">Enerji, mekanik, astronomi, nükleer, uzay</div>
+      </div>
+      <span class="alan-count">6 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Astronomi ve Astrofizik</span>
+          <span class="tematik-tag">Havacılık ve Uzay Bilimleri</span>
+          <span class="tematik-tag">Hidrojen Enerjisi</span>
+          <span class="tematik-tag">Malzeme Bilimi ve Nanoteknoloji</span>
+          <span class="tematik-tag">Nükleer Enerji</span>
+          <span class="tematik-tag">Yenilenebilir Enerji</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KİMYA -->
+  <div class="alan-card" data-alan="kimya">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">⚗️</div>
+      <div class="alan-info">
+        <h3>Kimya</h3>
+        <div class="alan-meta">Gıda, malzeme, sağlık, sürdürülebilirlik</div>
+      </div>
+      <span class="alan-count">6 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Gıda ve Gıda Arzı Güvenliği</span>
+          <span class="tematik-tag">Malzeme Bilimi ve Nanoteknoloji</span>
+          <span class="tematik-tag">Sağlıklı Beslenme</span>
+          <span class="tematik-tag">Sağlıklı Yaşam ve Spor</span>
+          <span class="tematik-tag">Sıfır Atık ve Geri Dönüşüm</span>
+          <span class="tematik-tag">Sürdürülebilir Şehirler ve Toplumlar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATEMATİK -->
+  <div class="alan-card" data-alan="matematik">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">📐</div>
+      <div class="alan-info">
+        <h3>Matematik</h3>
+        <div class="alan-meta">Algoritma, modelleme, istatistik, finansal okuryazarlık</div>
+      </div>
+      <span class="alan-count">4 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Algoritma Tasarımı ve Uygulamaları</span>
+          <span class="tematik-tag">Bilgisayarsız Kodlama</span>
+          <span class="tematik-tag">Finansal Okuryazarlık</span>
+          <span class="tematik-tag">STEAM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TARİH -->
+  <div class="alan-card" data-alan="tarih">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🏛️</div>
+      <div class="alan-info">
+        <h3>Tarih</h3>
+        <div class="alan-meta">Bilim tarihi, kültürel miras, Milli Teknoloji Hamlesi</div>
+      </div>
+      <span class="alan-count">3 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Bilim Tarihi ve Felsefesi</span>
+          <span class="tematik-tag">Kültürel Miras</span>
+          <span class="tematik-tag">Milli Teknoloji Hamlesi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TÜRK DİLİ VE EDEBİYATI -->
+  <div class="alan-card" data-alan="turkce">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">📖</div>
+      <div class="alan-info">
+        <h3>Türk Dili ve Edebiyatı <span class="only-a-badge">Sadece A</span></h3>
+        <div class="alan-meta">Dil, medya okuryazarlığı, yabancı dil eğitimi</div>
+      </div>
+      <span class="alan-count">5 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Bilim İletişimi</span>
+          <span class="tematik-tag">Dil ve Edebiyat</span>
+          <span class="tematik-tag">Görsel ve İşitsel Sanatlar</span>
+          <span class="tematik-tag">Medya Okuryazarlığı</span>
+          <span class="tematik-tag">Yabancı Dil Eğitimi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOSYOLOJİ -->
+  <div class="alan-card" data-alan="sosyoloji">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">👥</div>
+      <div class="alan-info">
+        <h3>Sosyoloji <span class="only-a-badge">Sadece A</span></h3>
+        <div class="alan-meta">Toplum, eğitim, oyun, kentleşme</div>
+      </div>
+      <span class="alan-count">6 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">E-Öğrenme</span>
+          <span class="tematik-tag">Okul Dışı Öğrenme Ortamları</span>
+          <span class="tematik-tag">Oyun ve Oyunlaştırma</span>
+          <span class="tematik-tag">Sürdürülebilir Şehirler ve Toplumlar</span>
+          <span class="tematik-tag">Göç ve Uyum</span>
+          <span class="tematik-tag">Yoksullukla Mücadele</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEKNOLOJİK TASARIM -->
+  <div class="alan-card" data-alan="teknoloji">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🔧</div>
+      <div class="alan-info">
+        <h3>Teknolojik Tasarım</h3>
+        <div class="alan-meta">Robotik, giyilebilir teknoloji, akıllı sistemler, IoT</div>
+      </div>
+      <span class="alan-count">8 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Akıllı Ulaşım Sistemleri</span>
+          <span class="tematik-tag">Erişilebilir Yaşam Teknolojileri</span>
+          <span class="tematik-tag">Giyilebilir Teknolojiler</span>
+          <span class="tematik-tag">Milli Teknoloji Hamlesi</span>
+          <span class="tematik-tag">Robotik ve Kodlama</span>
+          <span class="tematik-tag">STEAM</span>
+          <span class="tematik-tag">Biyomedikal Cihaz Teknolojileri</span>
+          <span class="tematik-tag">Çip Teknolojileri</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PSİKOLOJİ -->
+  <div class="alan-card" data-alan="psikoloji">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🧠</div>
+      <div class="alan-info">
+        <h3>Psikoloji <span class="only-a-badge">Sadece A</span></h3>
+        <div class="alan-meta">Davranış, siber psikoloji, nörobilim, sağlık</div>
+      </div>
+      <span class="alan-count">5 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Bağımlılık ve Bağımlılıkla Mücadele</span>
+          <span class="tematik-tag">Nörobilim ve Nöroteknoloji</span>
+          <span class="tematik-tag">Sağlıklı Yaşam ve Spor</span>
+          <span class="tematik-tag">Siber Psikoloji</span>
+          <span class="tematik-tag">Oyun ve Oyunlaştırma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YAZILIM -->
+  <div class="alan-card" data-alan="yazilim">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">💻</div>
+      <div class="alan-info">
+        <h3>Yazılım</h3>
+        <div class="alan-meta">YZ, makine öğrenmesi, siber güvenlik, blokzincir</div>
+      </div>
+      <span class="alan-count">10 tematik alan</span>
+      <span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap">
+      <div class="tematik-inner">
+        <span class="tematik-label">Tematik Alt Alanlar</span>
+        <div class="tematik-grid">
+          <span class="tematik-tag">Artırılmış, Sanal ve Karma Gerçeklik</span>
+          <span class="tematik-tag">Blokzincir</span>
+          <span class="tematik-tag">Büyük Veri ve Bulut Bilişim</span>
+          <span class="tematik-tag">Çip Teknolojileri</span>
+          <span class="tematik-tag">Dijital İkiz</span>
+          <span class="tematik-tag">Dijital Oyun Tasarımı</span>
+          <span class="tematik-tag">Makine Öğrenmesi</span>
+          <span class="tematik-tag">Siber Güvenlik</span>
+          <span class="tematik-tag">Yapay Zekâ</span>
+          <span class="tematik-tag">Büyük Veri ve Bulut Bilişim</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /panel-a -->
+
+<!-- ══════════════ PANEL B ══════════════ -->
+<div class="content panel" id="panel-b">
+
+  <div class="note-box">
+    <strong>📌 2204-B Farkı:</strong> Ortaokul kategorisinde <strong>danışman öğretmen zorunludur</strong>. Sosyoloji ve Psikoloji ayrı ana alan olarak yer almaz. "Türk Dili ve Edebiyatı" yerine <strong>"Türkçe"</strong> adı kullanılır.
+  </div>
+
+  <!-- BİYOLOJİ -->
+  <div class="alan-card" data-alan="biyoloji">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🌿</div>
+      <div class="alan-info"><h3>Biyoloji</h3><div class="alan-meta">Canlılar, genetik, ekoloji, mikrobiyoloji</div></div>
+      <span class="alan-count">8 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Biyoçeşitlilik</span>
+        <span class="tematik-tag">Biyomedikal Cihaz Teknolojileri</span>
+        <span class="tematik-tag">Biyotaklit</span>
+        <span class="tematik-tag">Ekolojik Denge</span>
+        <span class="tematik-tag">Ekolojik Okuryazarlık</span>
+        <span class="tematik-tag">Genetik ve Biyoteknoloji</span>
+        <span class="tematik-tag">Nörobilim ve Nöroteknoloji</span>
+        <span class="tematik-tag">Salgın Hastalıklar ve Salgınla Mücadele</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- COĞRAFYA -->
+  <div class="alan-card" data-alan="cografya">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🌍</div>
+      <div class="alan-info"><h3>Coğrafya</h3><div class="alan-meta">Doğal kaynaklar, afetler, çevre, iklim</div></div>
+      <span class="alan-count">8 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Çevre ve Çevreyi Koruma</span>
+        <span class="tematik-tag">Doğal Afetler ve Afet Yönetimi</span>
+        <span class="tematik-tag">Doğal Miras ve Doğal Kaynaklar</span>
+        <span class="tematik-tag">Jeotermal Enerji</span>
+        <span class="tematik-tag">Küresel Isınma ve İklim Değişikliği</span>
+        <span class="tematik-tag">Orman ve Ormanları Koruma</span>
+        <span class="tematik-tag">Tarım ve Hayvancılık Teknolojileri</span>
+        <span class="tematik-tag">Yer ve Deniz Bilimleri</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- DEĞERLER EĞİTİMİ -->
+  <div class="alan-card" data-alan="degerler">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🤝</div>
+      <div class="alan-info"><h3>Değerler Eğitimi</h3><div class="alan-meta">İnsan hakları, göç, yoksulluk, kültürel miras</div></div>
+      <span class="alan-count">8 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Aile İçi İletişim</span>
+        <span class="tematik-tag">Bağımlılık ve Bağımlılıkla Mücadele</span>
+        <span class="tematik-tag">Değerler Eğitimi</span>
+        <span class="tematik-tag">Göç ve Uyum</span>
+        <span class="tematik-tag">İnsan Hakları ve Demokrasi</span>
+        <span class="tematik-tag">Kültürel Miras</span>
+        <span class="tematik-tag">Sorumlu Üretim ve Tüketim</span>
+        <span class="tematik-tag">Yoksullukla Mücadele</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- FİZİK -->
+  <div class="alan-card" data-alan="fizik">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">⚡</div>
+      <div class="alan-info"><h3>Fizik</h3><div class="alan-meta">Enerji, mekanik, astronomi, nükleer, uzay</div></div>
+      <span class="alan-count">6 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Astronomi ve Astrofizik</span>
+        <span class="tematik-tag">Havacılık ve Uzay Bilimleri</span>
+        <span class="tematik-tag">Hidrojen Enerjisi</span>
+        <span class="tematik-tag">Malzeme Bilimi ve Nanoteknoloji</span>
+        <span class="tematik-tag">Nükleer Enerji</span>
+        <span class="tematik-tag">Yenilenebilir Enerji</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- KİMYA -->
+  <div class="alan-card" data-alan="kimya">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">⚗️</div>
+      <div class="alan-info"><h3>Kimya</h3><div class="alan-meta">Gıda, malzeme, sağlık, sürdürülebilirlik</div></div>
+      <span class="alan-count">6 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Gıda ve Gıda Arzı Güvenliği</span>
+        <span class="tematik-tag">Malzeme Bilimi ve Nanoteknoloji</span>
+        <span class="tematik-tag">Sağlıklı Beslenme</span>
+        <span class="tematik-tag">Sağlıklı Yaşam ve Spor</span>
+        <span class="tematik-tag">Sıfır Atık ve Geri Dönüşüm</span>
+        <span class="tematik-tag">Sürdürülebilir Şehirler ve Toplumlar</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- MATEMATİK -->
+  <div class="alan-card" data-alan="matematik">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">📐</div>
+      <div class="alan-info"><h3>Matematik</h3><div class="alan-meta">Algoritma, modelleme, istatistik, STEAM</div></div>
+      <span class="alan-count">4 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Algoritma Tasarımı ve Uygulamaları</span>
+        <span class="tematik-tag">Bilgisayarsız Kodlama</span>
+        <span class="tematik-tag">Finansal Okuryazarlık</span>
+        <span class="tematik-tag">STEAM</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- TARİH -->
+  <div class="alan-card" data-alan="tarih">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🏛️</div>
+      <div class="alan-info"><h3>Tarih</h3><div class="alan-meta">Bilim tarihi, kültürel miras, Milli Teknoloji Hamlesi</div></div>
+      <span class="alan-count">3 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Bilim Tarihi ve Felsefesi</span>
+        <span class="tematik-tag">Kültürel Miras</span>
+        <span class="tematik-tag">Milli Teknoloji Hamlesi</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- TÜRKÇE -->
+  <div class="alan-card" data-alan="turkce">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">📖</div>
+      <div class="alan-info"><h3>Türkçe</h3><div class="alan-meta">Dil, medya okuryazarlığı, yabancı dil eğitimi</div></div>
+      <span class="alan-count">5 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Bilim İletişimi</span>
+        <span class="tematik-tag">Dil ve Edebiyat</span>
+        <span class="tematik-tag">Görsel ve İşitsel Sanatlar</span>
+        <span class="tematik-tag">Medya Okuryazarlığı</span>
+        <span class="tematik-tag">Yabancı Dil Eğitimi</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- TEKNOLOJİK TASARIM -->
+  <div class="alan-card" data-alan="teknoloji">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">🔧</div>
+      <div class="alan-info"><h3>Teknolojik Tasarım</h3><div class="alan-meta">Robotik, giyilebilir teknoloji, akıllı sistemler</div></div>
+      <span class="alan-count">8 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Akıllı Ulaşım Sistemleri</span>
+        <span class="tematik-tag">Erişilebilir Yaşam Teknolojileri</span>
+        <span class="tematik-tag">Giyilebilir Teknolojiler</span>
+        <span class="tematik-tag">Milli Teknoloji Hamlesi</span>
+        <span class="tematik-tag">Robotik ve Kodlama</span>
+        <span class="tematik-tag">STEAM</span>
+        <span class="tematik-tag">Biyomedikal Cihaz Teknolojileri</span>
+        <span class="tematik-tag">Çip Teknolojileri</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- YAZILIM -->
+  <div class="alan-card" data-alan="yazilim">
+    <div class="alan-header" onclick="toggleCard(this)">
+      <div class="alan-icon">💻</div>
+      <div class="alan-info"><h3>Yazılım</h3><div class="alan-meta">YZ, makine öğrenmesi, siber güvenlik, blokzincir</div></div>
+      <span class="alan-count">10 tematik alan</span><span class="alan-arrow">▼</span>
+    </div>
+    <div class="tematik-wrap"><div class="tematik-inner">
+      <span class="tematik-label">Tematik Alt Alanlar</span>
+      <div class="tematik-grid">
+        <span class="tematik-tag">Artırılmış, Sanal ve Karma Gerçeklik</span>
+        <span class="tematik-tag">Blokzincir</span>
+        <span class="tematik-tag">Büyük Veri ve Bulut Bilişim</span>
+        <span class="tematik-tag">Çip Teknolojileri</span>
+        <span class="tematik-tag">Dijital İkiz</span>
+        <span class="tematik-tag">Dijital Oyun Tasarımı</span>
+        <span class="tematik-tag">Makine Öğrenmesi</span>
+        <span class="tematik-tag">Siber Güvenlik</span>
+        <span class="tematik-tag">Yapay Zekâ</span>
+        <span class="tematik-tag">Siber Psikoloji</span>
+      </div>
+    </div></div>
+  </div>
+
+</div><!-- /panel-b -->
+
+<!-- ══════════════ PANEL KARŞILAŞTIR ══════════════ -->
+<div class="content panel" id="panel-karsilastir">
+  <div class="compare-wrap" style="max-width:100%;padding:0;">
+    <div class="compare-title">2204-A ve 2204-B Ana Alan Karşılaştırması</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Ana Alan</th>
+          <th class="a">📘 2204-A Lise</th>
+          <th class="b">📗 2204-B Ortaokul</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🌿 Biyoloji</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>🌍 Coğrafya</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>🤝 Değerler Eğitimi</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>⚡ Fizik</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>⚗️ Kimya</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>📐 Matematik</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>🏛️ Tarih</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>📖 Türk Dili ve Edebiyatı / Türkçe</td><td><span class="tick">✔ <small>(Türk Dili ve Edebiyatı)</small></span></td><td><span class="tick">✔ <small>(Türkçe)</small></span></td></tr>
+        <tr><td>🔧 Teknolojik Tasarım</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>💻 Yazılım</td><td><span class="tick">✔</span></td><td><span class="tick">✔</span></td></tr>
+        <tr><td>👥 Sosyoloji</td><td><span class="tick">✔</span></td><td><span class="cross">✗ Yok</span></td></tr>
+        <tr><td>🧠 Psikoloji</td><td><span class="tick">✔</span></td><td><span class="cross">✗ Yok</span></td></tr>
+      </tbody>
+    </table>
+
+    <div style="height:28px"></div>
+    <div class="compare-title">Diğer Önemli Farklar</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Kural</th>
+          <th class="a">📘 2204-A Lise</th>
+          <th class="b">📗 2204-B Ortaokul</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ana alan sayısı</td><td>12</td><td>10</td></tr>
+        <tr><td>Tematik alan sayısı</td><td>63</td><td>63 (aynı)</td></tr>
+        <tr><td>Danışman zorunluluğu</td><td>Zorunlu değil</td><td><strong>Zorunlu</strong></td></tr>
+        <tr><td>Başvuru sistemi</td><td>BİDEB / ebideb.tubitak.gov.tr</td><td>BİDEB / tybs.tubitak.gov.tr</td></tr>
+        <tr><td>Yaş sınırı</td><td>20 yaşından gün almamış</td><td>Ortaokul öğrencisi olmak</td></tr>
+        <tr><td>Proje başına öğrenci</td><td>En fazla 3</td><td>En fazla 3</td></tr>
+        <tr><td>Alan değiştirme hakkı</td><td colspan="2" style="text-align:center">❌ Başvuru kapandıktan sonra değiştirilemez</td></tr>
+        <tr><td>Ek katsayı fırsatı</td><td>✔ Üniversite sınavında</td><td>— (Ortaokul)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div><!-- /panel-karsilastir -->
+
+<footer>Kaynak: TÜBİTAK 2204-A ve 2204-B Çağrı Duyuruları (2025) · bideb2204@tubitak.gov.tr</footer>
+
+<script>
+let activeTab = 'a';
+
+function switchTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active-a', 'active-b', 'active-k');
+  });
+  if (tab === 'a') btn.classList.add('active-a');
+  else if (tab === 'b') btn.classList.add('active-b');
+  else btn.classList.add('active-a');
+  document.getElementById('searchInput').value = '';
+  searchTematik('');
+}
+
+function toggleCard(header) {
+  const card = header.closest('.alan-card');
+  card.classList.toggle('open');
+}
+
+function searchTematik(val) {
+  const q = val.trim().toLowerCase();
+  const panel = document.getElementById('panel-' + activeTab);
+  if (!panel) return;
+
+  panel.querySelectorAll('.alan-card').forEach(card => {
+    const tags = card.querySelectorAll('.tematik-tag');
+    let anyMatch = false;
+
+    tags.forEach(tag => {
+      tag.classList.remove('highlight');
+      if (q && tag.textContent.toLowerCase().includes(q)) {
+        tag.classList.add('highlight');
+        anyMatch = true;
+      }
+    });
+
+    const alanName = card.querySelector('h3').textContent.toLowerCase();
+    const metaText = card.querySelector('.alan-meta').textContent.toLowerCase();
+    const nameMatch = q && (alanName.includes(q) || metaText.includes(q));
+
+    if (!q) {
+      card.classList.remove('search-hidden');
+      card.classList.remove('open');
+    } else if (anyMatch || nameMatch) {
+      card.classList.remove('search-hidden');
+      card.classList.add('open');
+    } else {
+      card.classList.add('search-hidden');
+      card.classList.remove('open');
+    }
+  });
+}
+</script>
+</body>
+</html>
