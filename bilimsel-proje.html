@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilimsel Proje Hazırlığı</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f4ff;
+    --card: #ffffff;
+    --blue: #3a6ff7;
+    --green: #2ec27e;
+    --orange: #f5a623;
+    --purple: #9b59b6;
+    --red: #e74c3c;
+    --teal: #1abc9c;
+    --dark: #1a1e3c;
+    --text: #3a3f5c;
+    --muted: #8892b0;
+    --shadow: 0 4px 20px rgba(58,111,247,0.13);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #3a6ff7 0%, #7b2ff7 100%);
+    padding: 40px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -40px;
+    width: 240px; height: 240px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .header-emoji { font-size: 56px; display: block; margin-bottom: 12px; animation: bounce 2s infinite; }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    position: relative; z-index: 1;
+  }
+  header p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative; z-index: 1;
+  }
+
+  /* WAVE */
+  .wave {
+    width: 100%;
+    line-height: 0;
+    margin-top: -2px;
+  }
+  .wave svg { display: block; width: 100%; }
+
+  /* CONTENT */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8px 20px 60px;
+  }
+
+  /* STEPS */
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin: 36px 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 14px; }
+
+  .step-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--blue);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.5s both;
+  }
+  .step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(58,111,247,0.18);
+  }
+  .step-card:nth-child(1) { border-color: var(--blue); animation-delay: 0.05s; }
+  .step-card:nth-child(2) { border-color: var(--green); animation-delay: 0.1s; }
+  .step-card:nth-child(3) { border-color: var(--orange); animation-delay: 0.15s; }
+  .step-card:nth-child(4) { border-color: var(--purple); animation-delay: 0.2s; }
+  .step-card:nth-child(5) { border-color: var(--teal); animation-delay: 0.25s; }
+  .step-card:nth-child(6) { border-color: var(--red); animation-delay: 0.3s; }
+  .step-card:nth-child(7) { border-color: var(--blue); animation-delay: 0.35s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-num {
+    min-width: 42px; height: 42px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .step-card:nth-child(1) .step-num { background: var(--blue); }
+  .step-card:nth-child(2) .step-num { background: var(--green); }
+  .step-card:nth-child(3) .step-num { background: var(--orange); }
+  .step-card:nth-child(4) .step-num { background: var(--purple); }
+  .step-card:nth-child(5) .step-num { background: var(--teal); }
+  .step-card:nth-child(6) .step-num { background: var(--red); }
+  .step-card:nth-child(7) .step-num { background: var(--blue); }
+
+  .step-body h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 5px;
+  }
+  .step-body p {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* TIPS */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .tip-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.5s both;
+  }
+  .tip-card:nth-child(1) { animation-delay: 0.1s; }
+  .tip-card:nth-child(2) { animation-delay: 0.15s; }
+  .tip-card:nth-child(3) { animation-delay: 0.2s; }
+  .tip-card:nth-child(4) { animation-delay: 0.25s; }
+  .tip-emoji { font-size: 2rem; display: block; margin-bottom: 8px; }
+  .tip-card h4 { font-size: 0.95rem; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+  .tip-card p  { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* KONU FİKİRLERİ */
+  .ideas-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .idea-tag {
+    background: linear-gradient(135deg, #e8f0ff, #f0e8ff);
+    color: var(--dark);
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border: 2px solid rgba(58,111,247,0.15);
+    animation: pop 0.4s both;
+    cursor: default;
+    transition: transform 0.15s;
+  }
+  .idea-tag:hover { transform: scale(1.07); }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.7); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .idea-tag:nth-child(1)  { animation-delay: 0.05s; }
+  .idea-tag:nth-child(2)  { animation-delay: 0.08s; }
+  .idea-tag:nth-child(3)  { animation-delay: 0.11s; }
+  .idea-tag:nth-child(4)  { animation-delay: 0.14s; }
+  .idea-tag:nth-child(5)  { animation-delay: 0.17s; }
+  .idea-tag:nth-child(6)  { animation-delay: 0.20s; }
+  .idea-tag:nth-child(7)  { animation-delay: 0.23s; }
+  .idea-tag:nth-child(8)  { animation-delay: 0.26s; }
+  .idea-tag:nth-child(9)  { animation-delay: 0.29s; }
+  .idea-tag:nth-child(10) { animation-delay: 0.32s; }
+  .idea-tag:nth-child(11) { animation-delay: 0.35s; }
+  .idea-tag:nth-child(12) { animation-delay: 0.38s; }
+
+  /* RAPOR */
+  .report-card {
+    background: linear-gradient(135deg, #1a1e3c, #2d3170);
+    border-radius: 20px;
+    padding: 26px 24px;
+    color: #fff;
+    box-shadow: 0 6px 28px rgba(26,30,60,0.25);
+    margin-top: 4px;
+  }
+  .report-card h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  .report-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .report-row:last-child { border-bottom: none; }
+  .report-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .report-row span { font-size: 0.9rem; color: rgba(255,255,255,0.88); font-weight: 600; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-emoji">🔬</span>
+  <h1>Bilimsel Proje Hazırlığı</h1>
+  <p>Ortaokul Öğrencileri için Adım Adım Rehber</p>
+</header>
+
+<div class="wave">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#f0f4ff" d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<div class="content">
+
+  <!-- ADIMLAR -->
+  <div class="section-title">🧭 Projenin Aşamaları</div>
+  <div class="steps">
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>🤔 Konu Seçimi</h3>
+        <p>Seni meraklandıran, günlük hayatla bağlantılı bir soru seç. "Neden?", "Nasıl?", "Ne olur?" diye başlayan sorular iyi konu fikirleri verir.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>❓ Araştırma Sorusu Belirleme</h3>
+        <p>Tek ve net bir soru yaz. Örnek: "Farklı sıcaklıktaki suyun çözünürlüğü nasıl değişir?" Sorun ölçülebilir ve test edilebilir olmalı.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>💡 Hipotez Oluşturma</h3>
+        <p>"Eğer … ise, … olur çünkü …" formatında tahminin yaz. Bu tahmin deney öncesinde yapılır ve sonuçlara göre doğrulanır ya da çürütülür.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>📚 Ön Araştırma</h3>
+        <p>Konuyla ilgili kitaplar, güvenilir web siteleri ve dergilerden bilgi topla. Kaynaklarını not et; raporunda mutlaka belirteceksin.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>🧪 Deney Tasarımı ve Uygulama</h3>
+        <p>Bağımsız değişken (değiştirdiğin), bağımlı değişken (ölçtüğün) ve sabit değişkenleri (aynı kalan) belirle. Deneyi güvenli bir ortamda, yetişkin gözetiminde yap.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h3>📊 Veri Toplama ve Analiz</h3>
+        <p>Deneyi en az 3 kez tekrarla. Sonuçları tabloya, grafiğe veya şemaya dönüştür. Sayıları anlamlı kılmak için ortalama ve yüzde kullanabilirsin.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h3>📝 Rapor ve Sunum</h3>
+        <p>Bulgularını açık bir dille yaz, görsel kullan ve sonuçların neden önemli olduğunu açıkla. Sunumda kendin anlayarak anlat, ezberleme!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- İPUÇLARI -->
+  <div class="section-title">✨ Başarı İpuçları</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-emoji">📒</span>
+      <h4>Defter Tut</h4>
+      <p>Her adımı tarih vererek not al; hataları da yaz, bilim bunlardan öğrenir.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-emoji">👩‍🔬</span>
+      <h4>Yetişkin Rehberliği</h4>
+      <p>Kimyasal veya ateş kullanan deneylerde mutlaka bir yetişkinle çalış.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-emoji">📸</span>
+      <h4>Fotoğrafla</h4>
+      <p>Sürecin her aşamasını fotoğrafla; sunum panonuz çok daha güçlü görünür.</p>
+    </div>
+    <div class="tip-card">
+      <span class="tip-emoji">🔁</span>
+      <h4>Tekrarla</h4>
+      <p>Tek bir deney sonucu yeterli değil; tutarlı sonuç için defalarca tekrarla.</p>
+    </div>
+  </div>
+
+  <!-- KONU FİKİRLERİ -->
+  <div class="section-title">💭 Konu Fikirleri</div>
+  <div class="ideas-wrap">
+    <span class="idea-tag">🌱 Bitki büyümesi ve ışık rengi</span>
+    <span class="idea-tag">💧 Su arıtma yöntemleri</span>
+    <span class="idea-tag">🧲 Mıknatıs ve elektrik</span>
+    <span class="idea-tag">🌡️ Isı yalıtım malzemeleri</span>
+    <span class="idea-tag">🍎 Meyve sularının pH'ı</span>
+    <span class="idea-tag">☀️ Güneş enerjisi modeli</span>
+    <span class="idea-tag">🦠 El hijyeni ve bakteriler</span>
+    <span class="idea-tag">♻️ Plastik bozunma süresi</span>
+    <span class="idea-tag">🔊 Ses yalıtımı deneyi</span>
+    <span class="idea-tag">💡 Biyolüminesans</span>
+    <span class="idea-tag">🌊 Okyanus kirliliği modeli</span>
+    <span class="idea-tag">🧬 DNA modeli yapımı</span>
+  </div>
+
+  <!-- RAPOR YAPISI -->
+  <div class="section-title">📄 Rapor Bölümleri</div>
+  <div class="report-card">
+    <h3>Bilimsel Rapor Nasıl Olmalı?</h3>
+    <div class="report-row"><div class="report-dot" style="background:#3a6ff7"></div><span>1. Kapak — Proje adı, öğrenci adı, tarih</span></div>
+    <div class="report-row"><div class="report-dot" style="background:#2ec27e"></div><span>2. Özet — Projenin kısa tanıtımı (5–7 cümle)</span></div>
+    <div class="report-row"><div class="report-dot" style="background:#f5a623"></div><span>3. Giriş — Araştırma sorusu ve hipotez</span></div>
+    <div class="report-row"><div class="report-dot" style="background:#9b59b6"></div><span>4. Yöntem — Malzemeler ve deney adımları</span></div>
+    <div class="report-row"><div class="report-dot" style="background:#1abc9c"></div><span>5. Bulgular — Tablo, grafik, gözlemler</span></div>
+    <div class="report-row"><div class="report-dot" style="background:#e74c3c"></div><span>6. Tartışma — Hipotez doğrulandı mı? Neden?</span></div>
+    <div class="report-row"><div class="report-dot" style="background:#3a6ff7"></div><span>7. Sonuç ve Kaynakça</span></div>
+  </div>
+
+</div>
+
+<div class="footer">🔬 Başarılar! Bilim merakla başlar.</div>
+
+</body>
+</html>
